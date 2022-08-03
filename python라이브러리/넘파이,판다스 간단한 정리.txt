@@ -1,0 +1,109 @@
+1.넘파이
+#라이브러리 불러오기(넘파이),np 별칭 -> import numpy as np
+
+a = [[1, 2, 3], 
+     [4, 5, 6]]
+              
+#배열 만들기 -> np.array(a)
+
+#배열 정보 확인 1) 차원 -> a.ndim
+               2) 크기 -> a.shape
+               3) 자료형 ->a.dtype
+
+#배열 형태 바꾸기 ->a.reshape(3,2)
+                    a.reshape(m,-1) -> 한쪽 크기만(m)정할 수 있다 
+
+
+a = np.array([[1, 2, 3],
+              [4, 5, 6], 
+              [7, 8, 9]])
+              
+#배열 인덱싱 슬라이싱 
+1)요소 조회(첫번째행 두번째열) ->print(a[0, 1])
+
+2)행조회 [첫 번째, 두 번째, 세 번째 행 조회]
+->print(a[[0, 1, 2], :])
+->print(a[[0, 1, 2]])
+
+3)열조회[첫 번째, 두 번째 열 조회]
+print(a[:, [0, 1]]) *행 인덱스 : 생략 안된다
+
+4)슬라이싱
+[첫 번째 ~ 세 번째 행, 두 번째 ~ 세 번째 열 조회]
+print(a[0:3, 1:3])
+
+#조건 조회
+->ex)print(a[a>8=]), & 와 | 로 조건 여려개 가능
+
+
+
+
+2.판다스
+#라이브러리 불러오기(판다스),pd 별칭 -> import pandas as pd
+
+#데이터 프레임 만들기 -> pd.DataFrame(a)
+                       print(a.head()) ->상위값 조회 *숫자 안쓰면 5개
+                       print(a.tail()) ->하위값 조회
+                       
+
+#csv 파일 읽어오기 
+->*데이터 읽어오기
+path = 'https://~~~.csv
+data = pd.read_csv(path)
+                    
+# 열 자료형, 값 개수 확인
+data.info()
+# 기초통계정보
+data.describe()
+
+# 단일 열 정렬
+data.sort_values(by=' ', ascending=False)
+# 복합 열 정렬
+data.sort_values(by=[' ', ' '], ascending=[True, False])
+
+# Attrition 열 조회 : 시리즈(1차원)로 조회
+temp=data['Attrition']
+
+#두개의 열을 조회 할때 : 데이터프레임으로 조회
+data[[' ', ' ' ]] -> 대괄호안에 리스트
+
+#조건으로 조회
+data.loc[data[' '] > ]
+#여러조건 ->각 조건 ()로 묶어준다
+
+>isin([리스트])   ex) data.loc[data[' '].isin([1,4])]
+>between(,)      ex)data.loc[data[' '].between(25, 30)]
+
+#데이터 프레임 집계
+#열 하나 집계 -> data[' '].sum()        *합계
+                data[[' ', ' ']].mean() *각각의 평균
+
+#  별  평균 --> 시리즈
+data.groupby('  ', as_index=True)[' '].mean()
+
+# 별  평균 --> 시리즈 as_index=False ->df
+data.groupby(' ', as_index=False)[' '].mean()
+
+#여러 함수 집계
+data2 =data.groupby(' ', as_index=False)[[' ']].agg(['min','max','mean','std'])
+
+
+#데이터 프레임 변경
+#열 이름 변경 -> data.rename(columns={' ' : ' ' }, inplace=True) 
+->아무거나 변경 가능
+#모든 열 이름변경 -> data.columns = ['','','','','','','','', '', '', ''] 
+->열 하나만 빠져도 오류
+
+#열 추가 ->data['새로운열'] = data[' '] / (1+data['  ']/100 )
+#열 삭제 ->data.drop(' ', axis=1, inplace=True)
+          data.drop([' ',' '], axis=1, inplace=True) ->여러열 삭제
+          
+#map()함수 ->data['Gen'] = data['Gen'].map({'Male': 1, 'Female': 0}) 
+->Gen변수의 Male,Female을 1과 0으로 바꾼다
+
+#cut()함수 ->data[' '] = pd.cut(data[' '], 3, labels=['a', 'b', 'c'] ) 
+->크기를 기준으로 범위를 나누고 싶을때 
+
+
+#bin = [0, 10, 15, np.inf(양의 무한대)] ->10이하,10초과 15이하,15초과(a,b,c)
+#data['M_Income_Group2'] = pd.cut(data['M_Income'], bins=bin, labels=['a', 'b', 'c'])
