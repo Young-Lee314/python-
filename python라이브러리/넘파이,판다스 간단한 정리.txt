@@ -85,7 +85,8 @@ data.groupby('  ', as_index=True)[' '].mean()
 data.groupby(' ', as_index=False)[' '].mean()
 
 #여러 함수 집계
-data2 =data.groupby(' ', as_index=False)[[' ']].agg(['min','max','mean','std'])
+data2 =data.groupby('', as_index=False)[['']]
+.agg(['min','max','mean','std'])
 
 
 #데이터 프레임 변경
